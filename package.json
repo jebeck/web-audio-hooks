@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
-    "analyze": "source-map-explorer dist/cjs/web-audio-hooks.js",
-    "build": "npm run build-modules",
+    "build": "rimraf dist && npm run build-modules && npm run build-umd",
     "build-modules": "rimraf dist/esm && rollup -c",
+    "build-umd": "rollup -c rollup.umd.config.js",
     "dev": "nodemon -w src/ -x 'npm run publish-local'",
     "lint": "eslint src/*.js src/**/*.js",
     "prepublishOnly": "npm run build",
@@ -55,7 +55,6 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-multi-input": "^1.1.1",
     "rollup-plugin-web-worker-loader": "^0.9.1",
-    "source-map-explorer": "^2.4.2",
     "yalc": "^1.0.0-pre.35"
   },
   "peerDependencies": {
