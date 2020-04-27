@@ -1,0 +1,91 @@
+{
+  "name": "web-audio-hooks",
+  "version": "0.1.0",
+  "description": "React hooks for the Web Audio and Web MIDI APIs",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "analyze": "source-map-explorer dist/cjs/web-audio-hooks.js",
+    "build": "npm run build-modules",
+    "build-modules": "rimraf dist/esm && rollup -c",
+    "dev": "nodemon -w src/ -x 'npm run publish-local'",
+    "lint": "eslint src/*.js src/**/*.js",
+    "prepublishOnly": "npm run build",
+    "publish-local": "yalc publish --push",
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jebeck/web-audio-hooks.git"
+  },
+  "keywords": [
+    "audio",
+    "MIDI",
+    "oscilloscope",
+    "React hooks",
+    "web audio",
+    "web MIDI"
+  ],
+  "author": "Jana E. Beck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jebeck/web-audio-hooks/issues"
+  },
+  "homepage": "https://github.com/jebeck/web-audio-hooks#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@rollup/plugin-multi-entry": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-react": "^7.19.0",
+    "husky": "^4.2.5",
+    "nodemon": "^2.0.3",
+    "prettier": "2.0.5",
+    "pretty-quick": "^2.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.7.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-multi-input": "^1.1.1",
+    "rollup-plugin-web-worker-loader": "^0.9.1",
+    "source-map-explorer": "^2.4.2",
+    "yalc": "^1.0.0-pre.35"
+  },
+  "peerDependencies": {
+    "react": ">= 16.x"
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread"
+    ],
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
