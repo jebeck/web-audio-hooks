@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export function useOscillator({ audioCtx, ...options }) {
+export function useOscillator({ audioCtx, destination, ...options }) {
   const oscillatorNodeRef = useRef();
 
   function getOscillator() {
@@ -11,11 +11,12 @@ export function useOscillator({ audioCtx, ...options }) {
   }
 
   useEffect(() => {
-    getOscillator().connect(audioCtx.destination);
+    let target = destination || audioCtx.destination;
+    getOscillator().connect(target);
     getOscillator().start();
 
     return () => {
-      getOscillator().disconnect(audioCtx.destination);
+      getOscillator().disconnect(target);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
