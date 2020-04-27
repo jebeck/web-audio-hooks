@@ -5,10 +5,11 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
-    "build": "rimraf dist && npm run build-modules && npm run build-umd",
+    "build": "rimraf dist && npm run build-modules && npm run build-umd && npm run build-workers",
     "build-modules": "rimraf dist/esm && rollup -c",
     "build-umd": "rollup -c rollup.umd.config.js",
-    "dev": "nodemon -w src/ -x 'npm run publish-local'",
+    "build-workers": "webpack --config webpack.workers.config.js",
+    "dev": "nodemon -w src/ -w workers/ -x 'npm run publish-local'",
     "lint": "eslint src/*.js src/**/*.js",
     "prepublishOnly": "npm run build",
     "publish-local": "yalc publish --push",
@@ -40,6 +41,7 @@
     "@babel/preset-react": "^7.9.4",
     "@rollup/plugin-multi-entry": "^3.0.0",
     "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-react": "^7.19.0",
@@ -55,6 +57,9 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-multi-input": "^1.1.1",
     "rollup-plugin-web-worker-loader": "^0.9.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "worker-loader": "^2.0.0",
     "yalc": "^1.0.0-pre.35"
   },
   "peerDependencies": {
@@ -83,7 +88,8 @@
   },
   "eslintConfig": {
     "env": {
-      "browser": true
+      "browser": true,
+      "es6": true
     },
     "extends": [
       "eslint:recommended",
