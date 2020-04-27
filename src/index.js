@@ -1,7 +1,3 @@
-export {
-  makeGetAudioCtxSingleton,
-  useAudioContext,
-} from './hooks/useAudioContext';
+export { useAudioContext } from './hooks/useAudioContext';
 export { useAudioStream } from './hooks/useAudioStream';
-
-export { withAudioContext } from './hoc/withAudioContext';
+export { useOscillator } from './hooks/useOscillator';

@@ -1,39 +1,35 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export function makeGetAudioCtxSingleton() {
-  let ctx;
+export function useAudioContext() {
+  const audioCtxRef = useRef();
+  const [isCurrentlyPlaying, setIsCurrentlyPlayin] = useState(false);
 
-  function createAudioCtx() {
-    return new AudioContext();
+  function getContext() {
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new AudioContext();
+    }
+    return audioCtxRef.current;
   }
 
-  return () => {
-    if (!ctx) {
-      ctx = createAudioCtx();
-    }
-    return ctx;
-  };
-}
-
-export function useAudioContext(getAudioCtx) {
-  const audioCtx = getAudioCtx();
-
   function pause() {
-    audioCtx.suspend();
+    getContext().suspend();
   }
 
   function play() {
-    audioCtx.resume();
+    getContext().resume();
   }
 
   useEffect(() => {
+    getContext().onstatechange = () => {
+      setIsCurrentlyPlayin(getContext().state === 'running');
+    };
     /** auto-play is very rude; Firefox does not implement audioCtx.state, so just always suspend initially */
-    audioCtx.suspend();
+    getContext().suspend();
 
     return () => {
-      audioCtx.close();
+      getContext().close();
     };
-  }, [audioCtx]);
+  }, []);
 
-  return { audioCtx, pause, play };
+  return { getContext, isCurrentlyPlaying, pause, play };
 }
