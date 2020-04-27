@@ -7,7 +7,7 @@ import {
 } from '../hooks/useAudioContext';
 
 function AudioContextWrapper({ Component, getAudioCtx, ...rest }) {
-  const audioCtx = useAudioContext({ getAudioCtx });
+  const audioCtx = useAudioContext(getAudioCtx);
 
   return <Component {...audioCtx} {...rest} />;
 }

@@ -15,7 +15,7 @@ export function makeGetAudioCtxSingleton() {
   };
 }
 
-export function useAudioContext({ getAudioCtx }) {
+export function useAudioContext(getAudioCtx) {
   const audioCtx = getAudioCtx();
 
   function pause() {
