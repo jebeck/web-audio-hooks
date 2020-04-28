@@ -3,6 +3,10 @@
 const path = require('path');
 
 module.exports = {
+  externals: {
+    'prop-types': 'prop-types',
+    react: 'react',
+  },
   mode: 'production',
   module: {
     rules: [
@@ -28,12 +32,12 @@ module.exports = {
     extensions: ['.js'],
   },
   entry: {
-    lib: path.resolve(__dirname, './workers/index.js'),
+    workers: path.resolve(__dirname, './lib/index.js'),
   },
   output: {
     filename: 'index.js',
     libraryTarget: 'commonjs2',
-    path: path.resolve(__dirname, './dist/workers'),
+    path: path.resolve(__dirname, './dist/lib'),
   },
   optimization: { minimize: true },
 };
