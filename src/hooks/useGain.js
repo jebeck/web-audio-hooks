@@ -22,10 +22,13 @@ export function useGain({ audioCtx, destination, ...options }) {
   useEffect(() => {
     if (
       gainNodeRef.current &&
-      options?.gain &&
+      options?.gain != null &&
       gainNodeRef.current.gain.value !== options?.gain
     ) {
-      gainNodeRef.current.gain.value = options?.gain;
+      gainNodeRef.current.gain.setValueAtTime(
+        options?.gain,
+        audioCtx.currentTime
+      );
     }
   });
 
