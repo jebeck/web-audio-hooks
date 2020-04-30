@@ -4,8 +4,13 @@ const path = require('path');
 
 module.exports = {
   externals: {
+    '@xstate/react': '@xstate/react',
     'prop-types': 'prop-types',
     react: 'react',
+    'styled-components': 'styled-components',
+    teoria: 'teoria',
+    uuid: 'uuid',
+    xstate: 'xstate',
   },
   mode: 'production',
   module: {
