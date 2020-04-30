@@ -27,7 +27,39 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
     ) {
       analyserNodeRef.current.fftSize = options?.fftSize;
     }
-  });
+  }, [options]);
+
+  useEffect(() => {
+    if (
+      analyserNodeRef.current &&
+      options?.maxDecibels &&
+      analyserNodeRef.current.maxDecibels !== options?.maxDecibels
+    ) {
+      analyserNodeRef.current.maxDecibels = options?.maxDecibels;
+    }
+  }, [options]);
+
+  useEffect(() => {
+    if (
+      analyserNodeRef.current &&
+      options?.minDecibels &&
+      analyserNodeRef.current.minDecibels !== options?.minDecibels
+    ) {
+      analyserNodeRef.current.minDecibels = options?.minDecibels;
+    }
+  }, [options]);
+
+  useEffect(() => {
+    if (
+      analyserNodeRef.current &&
+      options?.smoothingTimeConstant &&
+      analyserNodeRef.current.smoothingTimeConstant !==
+        options?.smoothingTimeConstant
+    ) {
+      analyserNodeRef.current.smoothingTimeConstant =
+        options?.smoothingTimeConstant;
+    }
+  }, [options]);
 
   return {
     getAnalyser,
