@@ -5,6 +5,7 @@ export function useGain({ audioCtx, destination, ...options }) {
 
   function getGain() {
     if (!gainNodeRef.current) {
+      /** [MDN] You shouldn't manually create a gain node; instead, use the method AudioContext.createGain(). */
       gainNodeRef.current = audioCtx.createGain();
     }
     return gainNodeRef.current;
@@ -25,9 +26,12 @@ export function useGain({ audioCtx, destination, ...options }) {
       options?.gain != null &&
       gainNodeRef.current.gain.value !== options?.gain
     ) {
-      gainNodeRef.current.gain.setValueAtTime(
-        options?.gain,
-        audioCtx.currentTime
+      /** gain cannot be 0 exactly, tho it can be negative */
+      const valueToSet = options?.gain === 0 ? 0.01 : options?.gain;
+      /** [MDN] Never change the value directly but use the exponential interpolation methods on the AudioParam interface. */
+      gainNodeRef.current.gain.exponentialRampToValueAtTime(
+        valueToSet,
+        audioCtx.currentTime + 1
       );
     }
   });
