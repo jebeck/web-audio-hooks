@@ -1,7 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+/** TODO: support custom-type waveforms via setPeriodicWave */
 
 export function useOscillator({ audioCtx, destination, ...options }) {
   const oscillatorNodeRef = useRef();
+  const [isOscillating, setIsOscillating] = useState(false);
 
   function getOscillator() {
     if (!oscillatorNodeRef.current) {
@@ -24,7 +27,20 @@ export function useOscillator({ audioCtx, destination, ...options }) {
   useEffect(() => {
     if (
       oscillatorNodeRef.current &&
-      options?.frequency &&
+      options?.detune != null &&
+      oscillatorNodeRef.current.detune !== options.detune
+    ) {
+      oscillatorNodeRef.current.detune.setValueAtTime(
+        options.detune,
+        audioCtx.currentTime
+      );
+    }
+  }, [audioCtx.currentTime, options]);
+
+  useEffect(() => {
+    if (
+      oscillatorNodeRef.current &&
+      options?.frequency != null &&
       oscillatorNodeRef.current.frequency !== options.frequency
     ) {
       oscillatorNodeRef.current.frequency.setValueAtTime(
@@ -44,5 +60,21 @@ export function useOscillator({ audioCtx, destination, ...options }) {
     }
   });
 
-  return { getOscillator };
+  function startNote() {
+    getOscillator().start();
+    setIsOscillating(true);
+  }
+
+  function stopNote() {
+    getOscillator().stop();
+  }
+
+  useEffect(() => {
+    getOscillator().onended = () => {
+      setIsOscillating(false);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return { getOscillator, isOscillating, startNote, stopNote };
 }
