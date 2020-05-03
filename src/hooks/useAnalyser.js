@@ -68,6 +68,6 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
   }, [options]);
 
   return {
-    getAnalyser,
+    analyserNode: getAnalyser(),
   };
 }

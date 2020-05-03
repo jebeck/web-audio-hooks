@@ -37,5 +37,5 @@ export function useGain({ audioCtx, destination, ...options }) {
     }
   });
 
-  return { getGain };
+  return { gainNode: getGain() };
 }

@@ -75,5 +75,10 @@ export function useOscillator({ audioCtx, destination, ...options }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { getOscillator, isOscillating, startNote, stopNote };
+  return {
+    oscillatorNode: getOscillator(),
+    isOscillating,
+    startNote,
+    stopNote,
+  };
 }

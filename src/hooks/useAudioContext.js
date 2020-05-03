@@ -31,5 +31,5 @@ export function useAudioContext() {
     };
   }, []);
 
-  return { getContext, isCurrentlyPlaying, pause, play };
+  return { audioCtx: getContext(), isCurrentlyPlaying, pause, play };
 }
