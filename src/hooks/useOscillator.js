@@ -34,7 +34,7 @@ export function useOscillator({ audioCtx, destination, ...options }) {
       oscillator.detune.setValueAtTime(options.detune, audioCtx.currentTime);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [audioCtx.currentTime, options]);
+  }, [options]);
 
   useEffect(() => {
     const oscillator = getOscillator();
@@ -49,7 +49,7 @@ export function useOscillator({ audioCtx, destination, ...options }) {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [audioCtx.currentTime, options]);
+  }, [options]);
 
   useEffect(() => {
     const oscillator = getOscillator();

@@ -8,5 +8,6 @@ export function useAudioStream({ audioCtx, destination }) {
       const stream = audioCtx.createMediaStreamSource(userStream);
       stream.connect(target);
     });
-  }, [audioCtx, destination]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [destination]);
 }
