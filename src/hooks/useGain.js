@@ -21,15 +21,16 @@ export function useGain({ audioCtx, destination, ...options }) {
   });
 
   useEffect(() => {
+    const gainNode = getGain();
     if (
-      gainNodeRef.current &&
+      gainNode &&
       options?.gain != null &&
-      gainNodeRef.current.gain.value !== options?.gain
+      gainNode.gain.value !== options?.gain
     ) {
       /** gain cannot be 0 exactly, tho it can be negative */
       const valueToSet = options?.gain === 0 ? 0.01 : options?.gain;
       /** [MDN] Never change the value directly but use the exponential interpolation methods on the AudioParam interface. */
-      gainNodeRef.current.gain.exponentialRampToValueAtTime(
+      gainNode.gain.exponentialRampToValueAtTime(
         valueToSet,
         audioCtx.currentTime + 1
       );
