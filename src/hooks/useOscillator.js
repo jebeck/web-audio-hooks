@@ -22,7 +22,7 @@ export function useOscillator({ audioCtx, destination, ...options }) {
       getOscillator().disconnect(target);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [destination]);
 
   useEffect(() => {
     const oscillator = getOscillator();

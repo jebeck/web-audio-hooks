@@ -104,7 +104,7 @@ export function useFilter({ audioCtx, destination, ...options }) {
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.type]);
+  }, [destination, options]);
 
   useEffect(() => {
     const filter = getFilter();

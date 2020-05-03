@@ -18,7 +18,8 @@ export function useGain({ audioCtx, destination, ...options }) {
     return () => {
       getGain().disconnect(target);
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [destination]);
 
   useEffect(() => {
     const gainNode = getGain();
@@ -35,7 +36,8 @@ export function useGain({ audioCtx, destination, ...options }) {
         audioCtx.currentTime + 1
       );
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [options]);
 
   return { gainNode: getGain() };
 }

@@ -17,7 +17,8 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
     return () => {
       getAnalyser().disconnect(target);
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [destination]);
 
   useEffect(() => {
     const analyser = getAnalyser();
