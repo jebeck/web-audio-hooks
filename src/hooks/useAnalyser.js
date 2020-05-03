@@ -20,45 +20,51 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
   });
 
   useEffect(() => {
+    const analyser = getAnalyser();
     if (
       analyserNodeRef.current &&
       options?.fftSize &&
-      analyserNodeRef.current.fftSize !== options?.fftSize
+      analyser.fftSize !== options?.fftSize
     ) {
-      analyserNodeRef.current.fftSize = options?.fftSize;
+      analyser.fftSize = options?.fftSize;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   useEffect(() => {
+    const analyser = getAnalyser();
     if (
-      analyserNodeRef.current &&
+      analyser &&
       options?.maxDecibels &&
-      analyserNodeRef.current.maxDecibels !== options?.maxDecibels
+      analyser.maxDecibels !== options?.maxDecibels
     ) {
-      analyserNodeRef.current.maxDecibels = options?.maxDecibels;
+      analyser.maxDecibels = options?.maxDecibels;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   useEffect(() => {
+    const analyser = getAnalyser();
     if (
-      analyserNodeRef.current &&
+      analyser &&
       options?.minDecibels &&
-      analyserNodeRef.current.minDecibels !== options?.minDecibels
+      analyser.minDecibels !== options?.minDecibels
     ) {
-      analyserNodeRef.current.minDecibels = options?.minDecibels;
+      analyser.minDecibels = options?.minDecibels;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   useEffect(() => {
+    const analyser = getAnalyser();
     if (
-      analyserNodeRef.current &&
+      analyser &&
       options?.smoothingTimeConstant &&
-      analyserNodeRef.current.smoothingTimeConstant !==
-        options?.smoothingTimeConstant
+      analyser.smoothingTimeConstant !== options?.smoothingTimeConstant
     ) {
-      analyserNodeRef.current.smoothingTimeConstant =
-        options?.smoothingTimeConstant;
+      analyser.smoothingTimeConstant = options?.smoothingTimeConstant;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   return {
