@@ -10,6 +10,7 @@ module.exports = {
     'styled-components': 'styled-components',
     teoria: 'teoria',
     uuid: 'uuid',
+    webmidi: 'webmidi',
     xstate: 'xstate',
   },
   mode: 'production',

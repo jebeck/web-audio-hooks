@@ -2,7 +2,7 @@ import babel from 'rollup-plugin-babel';
 import multi from 'rollup-plugin-multi-input';
 
 export default {
-  external: ['prop-types', 'react'],
+  external: ['prop-types', 'react', 'webmidi'],
   input: 'src/**/*.js',
   output: {
     format: 'esm',

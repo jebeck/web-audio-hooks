@@ -10,3 +10,4 @@ export {
 export { useGain } from './hooks/useGain';
 export { useOscillator } from './hooks/useOscillator';
 export { useTimeDomainData } from './hooks/useTimeDomainData';
+export { useWebMIDI } from './hooks/useWebMIDI';

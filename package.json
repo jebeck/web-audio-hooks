@@ -33,7 +33,9 @@
     "url": "https://github.com/jebeck/web-audio-hooks/issues"
   },
   "homepage": "https://github.com/jebeck/web-audio-hooks#readme",
-  "dependencies": {},
+  "dependencies": {
+    "webmidi": "^2.5.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
@@ -68,7 +70,8 @@
     "yalc": "^1.0.0-pre.35"
   },
   "peerDependencies": {
-    "react": ">= 16.x"
+    "react": ">= 16.x",
+    "webmidi": ">= 2.x"
   },
   "babel": {
     "plugins": [
