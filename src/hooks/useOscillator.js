@@ -25,40 +25,39 @@ export function useOscillator({ audioCtx, destination, ...options }) {
   }, []);
 
   useEffect(() => {
+    const oscillator = getOscillator();
     if (
-      oscillatorNodeRef.current &&
+      oscillator &&
       options?.detune != null &&
-      oscillatorNodeRef.current.detune !== options.detune
+      oscillator.detune !== options.detune
     ) {
-      oscillatorNodeRef.current.detune.setValueAtTime(
-        options.detune,
-        audioCtx.currentTime
-      );
+      oscillator.detune.setValueAtTime(options.detune, audioCtx.currentTime);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioCtx.currentTime, options]);
 
   useEffect(() => {
+    const oscillator = getOscillator();
     if (
-      oscillatorNodeRef.current &&
+      oscillator &&
       options?.frequency != null &&
-      oscillatorNodeRef.current.frequency !== options.frequency
+      oscillator.frequency !== options.frequency
     ) {
-      oscillatorNodeRef.current.frequency.setValueAtTime(
+      oscillator.frequency.setValueAtTime(
         options.frequency,
         audioCtx.currentTime
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioCtx.currentTime, options]);
 
   useEffect(() => {
-    if (
-      oscillatorNodeRef.current &&
-      options?.type &&
-      oscillatorNodeRef.current.type !== options.type
-    ) {
-      oscillatorNodeRef.current.type = options?.type;
+    const oscillator = getOscillator();
+    if (oscillator && options?.type && oscillator.type !== options.type) {
+      oscillator.type = options?.type;
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [options]);
 
   function startNote() {
     getOscillator().start();
