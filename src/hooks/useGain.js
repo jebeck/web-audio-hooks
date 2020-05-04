@@ -1,5 +1,8 @@
 import { useEffect, useRef } from 'react';
 
+export const MIN_GAIN = 0.00001;
+export const RAMP_TIME = 0.05;
+
 export function useGain({ audioCtx, destination, ...options }) {
   const gainNodeRef = useRef();
 
@@ -12,6 +15,7 @@ export function useGain({ audioCtx, destination, ...options }) {
   }
 
   useEffect(() => {
+    console.log('useGain: connect to target');
     let target = destination || audioCtx.destination;
     getGain().connect(target);
 
@@ -22,6 +26,7 @@ export function useGain({ audioCtx, destination, ...options }) {
   }, [destination]);
 
   useEffect(() => {
+    console.log('useGain: update gain');
     const gainNode = getGain();
     if (
       gainNode &&
@@ -29,15 +34,16 @@ export function useGain({ audioCtx, destination, ...options }) {
       gainNode.gain.value !== options?.gain
     ) {
       /** gain cannot be 0 exactly, tho it can be negative */
-      const valueToSet = options?.gain === 0 ? 0.01 : options?.gain;
+      const valueToSet = options?.gain === 0 ? MIN_GAIN : options?.gain;
       /** [MDN] Never change the value directly but use the exponential interpolation methods on the AudioParam interface. */
-      gainNode.gain.exponentialRampToValueAtTime(
+      gainNode.gain.setTargetAtTime(
         valueToSet,
-        audioCtx.currentTime + 1
+        audioCtx.currentTime,
+        RAMP_TIME
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.gain]);
 
   return { gainNode: getGain() };
 }

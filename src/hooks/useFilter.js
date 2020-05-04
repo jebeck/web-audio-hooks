@@ -95,6 +95,7 @@ export function useFilter({ audioCtx, destination, ...options }) {
   }
 
   useEffect(() => {
+    console.log('useFilter: connect to target');
     if (options?.type) {
       let target = destination || audioCtx.destination;
       getFilter().connect(target);
@@ -104,25 +105,28 @@ export function useFilter({ audioCtx, destination, ...options }) {
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [destination, options]);
+  }, [destination, options.type]);
 
   useEffect(() => {
+    console.log('useFilter: update detune');
     const filter = getFilter();
     if (shouldBeUpdated(filter, options, 'detune')) {
       filter.detune.setValueAtTime(options.detune, audioCtx.currentTime);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.detune]);
 
   useEffect(() => {
+    console.log('useFilter: update frequency');
     const filter = getFilter();
     if (shouldBeUpdated(filter, options, 'frequency')) {
       filter.frequency.setValueAtTime(options.frequency, audioCtx.currentTime);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.frequency]);
 
   useEffect(() => {
+    console.log('useFilter: update gain');
     const filter = getFilter();
     if (shouldBeUpdated(filter, options, 'gain')) {
       /** gain cannot be 0 exactly, tho it can be negative */
@@ -134,23 +138,25 @@ export function useFilter({ audioCtx, destination, ...options }) {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.gain]);
 
   useEffect(() => {
+    console.log('useFilter: update Q');
     const filter = getFilter();
     if (shouldBeUpdated(filter, options, 'Q')) {
       filter.Q.setValueAtTime(options.Q, audioCtx.currentTime);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.Q]);
 
   useEffect(() => {
+    console.log('useFilter: update type');
     const filter = getFilter();
     if (filter && options?.type && filter.type !== options.type) {
       filter.type = options?.type;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.type]);
 
   return {
     filterNode: getFilter(),

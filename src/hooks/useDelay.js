@@ -11,6 +11,7 @@ export function useDelay({ audioCtx, destination, ...options }) {
   }
 
   useEffect(() => {
+    console.log('useDelay: connect to target');
     let target = destination || audioCtx.destination;
     getDelay().connect(target);
 
@@ -21,6 +22,7 @@ export function useDelay({ audioCtx, destination, ...options }) {
   }, [destination]);
 
   useEffect(() => {
+    console.log('useDelay: update delayTime');
     const delayNode = getDelay();
     if (
       delayNode &&
@@ -33,7 +35,7 @@ export function useDelay({ audioCtx, destination, ...options }) {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.delayTime]);
 
   return { delayNode: getDelay() };
 }

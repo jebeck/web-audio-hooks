@@ -11,6 +11,7 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
   }
 
   useEffect(() => {
+    console.log('useAnalyser: connect to target');
     let target = destination || audioCtx.destination;
     getAnalyser().connect(target);
 
@@ -21,6 +22,7 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
   }, [destination]);
 
   useEffect(() => {
+    console.log('useAnalyser: update fftSize');
     const analyser = getAnalyser();
     if (
       analyserNodeRef.current &&
@@ -30,9 +32,10 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
       analyser.fftSize = options?.fftSize;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.fftSize]);
 
   useEffect(() => {
+    console.log('useAnalyser: update maxDecibels');
     const analyser = getAnalyser();
     if (
       analyser &&
@@ -42,9 +45,10 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
       analyser.maxDecibels = options?.maxDecibels;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.maxDecibels]);
 
   useEffect(() => {
+    console.log('useAnalyser: update minDecibels');
     const analyser = getAnalyser();
     if (
       analyser &&
@@ -54,9 +58,10 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
       analyser.minDecibels = options?.minDecibels;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.minDecibels]);
 
   useEffect(() => {
+    console.log('useAnalyser: update smoothingTimeConstant');
     const analyser = getAnalyser();
     if (
       analyser &&
@@ -66,7 +71,7 @@ export function useAnalyser({ audioCtx, destination, ...options }) {
       analyser.smoothingTimeConstant = options?.smoothingTimeConstant;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options]);
+  }, [options.smoothingTimeConstant]);
 
   return {
     analyserNode: getAnalyser(),
